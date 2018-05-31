@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4CAF50;
+}
+
+li {
+    float: left;
+}
+figcaption {
+  text-decoration: none;
+  color:steelblue;
+}
+
+
+li a {
+  text-decoration: none;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  text-decoration: none;  
+    background-color: #4CAF50;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  padding: 10px;
+}
+.grid-item {
+  
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+button{ width:150px; height:35px; margin-top:10px; background:#4CAF50; font-family:verdana; font-size:14px; color:white; cursor:pointer; outline:none; border-color:#4CAF50  }
+</style>
+</head>
+<body>
+
+<ul>
+<li style="float:left"><a class="active" href="home"><img src="./static/chillar.png"></a></li>
+  <li style="float:right"><button onclick="window.location.href='/logout'">Log Out</button></li>
+  <li style="float:right"><a class="active" href="home">Hello, {{session['current_user']}}</a></li>
+</ul>
+
+
+<div class="grid-container">
+  <div class="grid-item"></div>
+  <div class="grid-item"></div>
+  <div class="grid-item"></div>  
+  <div class="grid-item"><a href="pay"> <img src="https://chillr.com/images/temp/Home-icon-1-8e926f991c.png" ><figcaption>Pay</figcaption></a></div>
+  <div class="grid-item"><a href="add"><img src="https://chillr.com/images/temp/Home-icon-2-63696b4cdd.png"><figcaption>Add Money</figcaption></a></div>
+  <div class="grid-item"><a href="passbook"><img src="https://chillr.com/images/temp/Home-icon-3-ec15731a2d.png"><figcaption>View Passbook</figcaption></a></div>
+  <div class="grid-item"></div>
+  <div class="grid-item"><a href="change"><img src="https://chillr.com/images/temp/investment-69c81cf458.png"><figcaption>Change Password</figcaption></div>  
+  
+  <div class="grid-item"></div>
+  <div class="grid-item"></div>
+  <div class="grid-item"></div>  
+</div>
+<div class="footer">
+
+</body>
+</html>

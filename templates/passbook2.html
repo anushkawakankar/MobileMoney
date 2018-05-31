@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#myInputall, #myInputpaid, #myInputadded, #myInputr {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    /*padding: 14px 16px;*/
+    transition: 0.3s;
+    font-size: 17px;
+    color:black;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  color:white;
+    background-color: #4caf50;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #4caf50;
+    color:white;
+}
+
+/* Style the tab content */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4CAF50;
+}
+
+li {
+    float: left;
+}
+table {
+  padding-top: 15px;
+  padding-left: none;
+  padding-right: none;
+  background-color
+}
+figcaption {
+  text-decoration: none;
+  color:steelblue;
+}
+
+
+li a {
+  text-decoration: none;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  text-decoration: none;  
+    background-color: #4CAF50;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  padding: 10px;
+}
+.grid-item {
+  
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+button{ width:150px; height:35px; outline: none;margin-top:10px; background:#4CAF50; font-family:verdana; font-size:14px; color:white; cursor:pointer; outline:none; border-color:none;  }
+</style>
+</head>
+<body>
+
+<ul>
+  <li style="float:left"><a class="active" href="home"><img src="./static/chillar.png"></a></li>
+  <li style="float:right"><button onclick="window.location.href='/logout'">Log Out</button></li>
+  <li style="float:right"><a class="active" href="home">Hello, {{session['current_user']}}</a></li>
+</ul>
+
+<!-- <div class="passbk"> -->
+<div> Balance : {{now_user.balance}} </div><br>
+
+<div class="tab">
+<button class="tabLinks" onclick="openTable(event, 'All')" id="defaultOpen">All</button>
+<button class="tabLinks" onclick="openTable(event, 'Paid')">Paid</button>
+<button class="tabLinks" onclick="openTable(event, 'Received')">Received</button>
+<button class="tabLinks" onclick="openTable(event, 'Added')">Added</button>
+</div>
+
+<!-- ............................................................. -->
+<div id="All", class="tabcontent">
+<input type="Date" id="myInputall" onchange="myFunction('myTableall',4,'myInputall')" placeholder="Search for dates.." title="Type in a date">
+<div class="transaction">
+<table style="width:100%;" id="myTableall">
+<tr>
+<th> Transaction Id </th>
+<th> From</th>
+<th> To </th>
+<th> Amount </th>
+<th> Date/Time </th>
+</tr>
+{% for i in passbook %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.from_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.to_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.date}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+</div>
+<!-- ............................................................ -->
+<div id="Paid", class="tabcontent">
+<input type="Date" id="myInputpaid" onchange="myFunction('myTablepaid',3,'myInputpaid')" placeholder="Search for dates.." title="Type in a date">
+<div class="transaction">
+<table style="width:100%;" id="myTablepaid">
+<tr>
+<th> Transaction Id </th>
+<th> To </th>
+<th> Amount </th>
+<th> Date/Time </th>
+</tr>
+{% for i in debit_list %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.to_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.date}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+</div>
+<!-- ............................................................ -->
+<div id="Received", class="tabcontent">
+<input type="Date" id="myInputr" onchange="myFunction('myTabler',3,'myInputr')" placeholder="Search for dates.." title="Type in a date">
+<div class="transaction">
+<table style="width:100%;" id="myTabler">
+<tr>
+<th> Transaction Id </th>
+<th> From </th>
+<th> Amount </th>
+<th> Date/Time </th>
+</tr>
+{% for i in credit_list %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.from_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.date}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+</div>
+<!-- ............................................................ -->
+<div id="Added", class="tabcontent">
+<input type="Date" id="myInputadded" onchange="myFunction('myTableadd',4,'myInputadded')" placeholder="Search for dates.." title="Type in a date">
+<div class="transaction">
+<table style="width:100%;" id="myTableadd">
+<tr>
+<th> Transaction Id </th>
+<th> Amount </th>
+<th> Date/Time </th>
+</tr>
+{% for i in added %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.date}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+</div>
+<!-- ............................................................ -->
+
+<script>
+document.getElementById("defaultOpen").click();
+function openTable(evt, tableName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tableName).style.display = "block";
+    this.className += " active";
+}
+
+function myFunction(myid,colnum,searchinp){
+  var input,table,tr,td,i,filter;
+  input = document.getElementById(searchinp);
+  filter = input.value.toUpperCase();
+  table = document.getElementById(myid);
+  tr = table.getElementsByTagName("tr");
+  for(i=1; i < tr.length; i++){
+    td = tr[i].getElementsByTagName("td")[colnum];
+    console.log(td.innerHTML)
+    console.log(filter);
+    if(td){
+      if(td.innerHTML.toUpperCase().indexOf(filter)>-1){
+        tr[i].style.display="";
+      }
+      else{
+        tr[i].style.display="none";
+      }
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
+
+

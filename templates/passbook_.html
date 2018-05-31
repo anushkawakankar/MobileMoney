@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #4caf50;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #4caf50;
+}
+
+/* Style the tab content */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4CAF50;
+}
+
+li {
+    float: left;
+}
+table {
+  padding-top: 15px;
+  padding-left: none;
+  padding-right: none;
+  background-color
+}
+figcaption {
+  text-decoration: none;
+  color:steelblue;
+}
+
+
+li a {
+  text-decoration: none;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  text-decoration: none;  
+    background-color: #4CAF50;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  padding: 10px;
+}
+.grid-item {
+  
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+button{ width:150px; height:35px; margin-top:10px; background:#4CAF50; font-family:verdana; font-size:14px; color:white; cursor:pointer; outline:none; border-color:none;  }
+</style>
+</head>
+<body>
+
+<ul>
+  <li style="float:right"><button onclick="window.location.href='/logout'">Log Out</button></li>
+  <li style="float:left"><a class="active" href="home">Hello, {{session['current_user']}}</a></li>
+</ul>
+
+<div class="passbk">
+<div> Balance : {{now_user.balance}} </div>
+<div class="tab">
+<button class="tabLinks" onclick="openTable(event,'All')" id="defaulOpen">All</button>
+<button class="tabLinks" onclick="openTable(event, 'Paid')">Paid</button>
+<button class="tabLinks" onclick="openTable(event, 'Received')">Received</button>
+<button class="tabLinks" onclick="openTable(event, 'Added')">Added</button>
+</div>
+<!-- ............................................................. -->
+<div id="All", class="tabcontent">
+<div class="transaction">
+<table style="width:100%;">
+<tr>
+<th> Transaction Id </th>
+<th> From</th>
+<th> To </th>
+<th> Amount </th>
+</tr>
+{% for i in passbook %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.from_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.to_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+<!-- ............................................................ -->
+<div id="Paid", class="tabcontent">
+<div class="transaction">
+<table style="width:100%;">
+<tr>
+<th> Transaction Id </th>
+<th> To </th>
+<th> Amount </th>
+</tr>
+{% for i in credit_list %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.to_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+<!-- ............................................................ -->
+<div id="Received", class="tabcontent">
+<div class="transaction">
+<table style="width:100%;">
+<tr>
+<th> Transaction Id </th>
+<th> From </th>
+<th> Amount </th>
+</tr>
+{% for i in debit_list %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.from_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+<!-- ............................................................ -->
+<div id="All", class="tabcontent">
+<div class="transaction">
+<table style="width:100%;">
+<tr>
+<th> Transaction Id </th>
+<th> From</th>
+<th> To </th>
+<th> Amount </th>
+</tr>
+{% for i in added %}
+<tr>
+<td style="background-color: lightgrey"><center> {{i.tid}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.from_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.to_user}} </center></td>
+<td style="background-color: lightgrey"><center> {{i.amount}} </center></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+<!-- ............................................................ -->
+
+</div>
+</div>
+
+
+<div class="footer">
+
+<script>
+function openTable(evt, tableName) {
+  var i, tabcontent,tabLinks;
+  tabcontent=document.getElementByClassName("tabcontent");
+  for(i=0;i<tabcontent.length;i++){
+    tabcontent[i].style.display="none";
+  }
+  tabLinks=document.getElementByClassName("tabLinks");
+  for(i=0;i<tabLinks.length;i++){
+    tabLinks[i].className=tabLinks[i].className.replace("active","");
+  }
+  document.getElementById(tableName).style.display="block";
+  evt.currentTarget.className += "active";
+}
+document.getElementById("defaultOpen").click();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Sign Up</title>
+
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+    <script src="./Signin Template for Bootstrap_files/ie-emulation-modes-warning.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+</head>
+<body>
+    <div class="row">
+    <div class="col-md-10"><h1>Chillar</h1></div>
+    <div class="col-md-2">
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="signup">Sign Up</a></li>
+          <li role="presentation" id="si"><a href="signin">Sign In</a></li>
+        </ul>
+    </div>
+    </div>
+
+<div class="container">
+    <form class="form-signin" action="/signup" method="POST">
+        <h2 class="form-signin-heading">Please Sign Up</h2>
+        {{ signupform.phone(id="inputPhone", class="form-control", autofocus="",placeholder="Phone Number")}}
+        {{ signupform.email(placeholder="Email",id="inputEmail", class="form-control", autofocus="") }}
+        {{ signupform.username(id="inputUser", class="form-control", autofocus="",placeholder="User Name")}}
+        {{ signupform.password(placeholder="Password",id="inputPassword", class="form-control", required="") }}
+        {{ signupform.usertype(id="usertype", required="", class ="form-control")}}
+        {{ signupform.csrf_token }}
+        <br>
+        <input type="submit" value="Signup">
+        <div class="noacc">Already have an account? <a class="signup" href="/signin">Sign In Here</a></div>      
+    </form>
+    </div>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <h3 class="flashes" align="center" style="color:#337ab7">{{ message }}</h3>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+    <script src="./Signin Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
+
+ -->
+
+
+ <!DOCTYPE html>
+<html>
+<style>
+@font-face {
+  font-family: "Monsterrat";
+  src: url(./static/fonts/montserrat/Montserrat-Medium.otf) format("opentype");
+  /*font-size: 100px;*/
+  }
+body {font-family: "Monsterrat";}
+* {box-sizing: border-box}
+/* Full-width input fields */
+.form-control {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+.form-control:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for all buttons */
+button, input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.form-signin {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+       width: 100%;
+    }
+}
+</style>
+
+
+<body onload="document.getElementById('id01').style.display='block'" style="width:auto;">
+<div id="id01" class="modal">
+<center><div><img src="./static/chillar2.png"></div></center>
+    <form class="form-signin" action="/signup" method="POST">
+     <div class="container">
+        <h2 class="form-signin-heading">Please Sign Up</h2>
+        {{ signupform.phone(id="inputPhone", class="form-control", autofocus="",placeholder="Phone Number")}}
+        {{ signupform.email(placeholder="Email",id="inputEmail", class="form-control", autofocus="") }}
+        {{ signupform.username(id="inputUser", class="form-control", autofocus="",placeholder="User Name")}}
+        {{ signupform.password(placeholder="Password",id="inputPassword", class="form-control", required="") }}
+         {{ signupform.usertype(id="usertype", required="", class ="form-control")}}
+        {{ signupform.csrf_token }}
+        <input type="submit" value="Signup">
+        <div class="noacc">Already have an account! <a class="signup" href="/signin">Sign In Here</a></div>  
+        </div>
+
+    </form>
+     
+      </div>
+       {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <h3 class="flashes" align="center" style="color:#337ab7">{{ message }}</h3>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+   
+
+<script>
+var modal = document.getElementById('id01');
+</script>
+
+</body>
+</html>
